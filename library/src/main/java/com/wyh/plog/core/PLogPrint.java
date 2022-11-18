@@ -1,7 +1,8 @@
 package com.wyh.plog.core;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by wyh on 2019/3/20.

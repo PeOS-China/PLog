@@ -1,7 +1,8 @@
 package com.wyh.plog.internal;
 
 import android.os.Process;
-import android.support.annotation.AnyThread;
+
+import androidx.annotation.AnyThread;
 
 import com.wyh.plog.core.PLog;
 import com.wyh.plog.core.PLogTag;

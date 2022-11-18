@@ -1,6 +1,6 @@
 package com.wyh.plog.upload.impl;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.wyh.plog.core.PLog;
 import com.wyh.plog.core.PLogPrint;

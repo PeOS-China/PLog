@@ -4,10 +4,11 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.wyh.plog.core.PLog;
 import com.wyh.plog.core.PLogTag;
@@ -24,7 +25,7 @@ public class PLogLifecycle {
                     @Override
                     public void onActivityCreated(Activity activity, Bundle bundle) {
                         PLog.d(PLogTag.ACTIVITY_LIFE_TAG, "Create -> " + activity.getClass().getSimpleName() + "@" + activity.hashCode());
-                        if (activity instanceof android.support.v4.app.FragmentActivity) {
+                        if (activity instanceof FragmentActivity) {
                             FragmentActivity fActivity = (FragmentActivity) activity;
                             FragmentManager fm = fActivity.getSupportFragmentManager();
                             fm.registerFragmentLifecycleCallbacks(sFragmentLifecycleCallbacks, true);

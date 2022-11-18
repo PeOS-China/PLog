@@ -3,9 +3,10 @@ package com.wyh.plog.helper;
 import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.wyh.plog.core.PLogConstant;
 import com.wyh.plog.core.PLogPrint;
