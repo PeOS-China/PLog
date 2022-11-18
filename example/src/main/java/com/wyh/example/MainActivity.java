@@ -1,9 +1,10 @@
 package com.wyh.example;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.wyh.plog.core.PLog;
 import com.wyh.plog.upload.UploadListener;
