@@ -50,37 +50,37 @@ public class LogRecorderImpl implements LogRecorder {
 
 
     private synchronized void tryInitLogWriter() {
-        // if (null != logWriter) {
-        //     return;
-        // }
-        // PLogPrint.d(PLogTag.INTERNAL_TAG, "tryInitLogWriter-->dirPath=" + config.getLogDir());
-        // try {
-        //     MmapLogWriter mmapLogWriter = new MmapLogWriter();
-        //     String basicInfo = logFormatter.format(PLog.DebugLevel.DEBUG, PLogTag.INTERNAL_TAG, getBasicInfo(config));
-        //     PLogPrint.d(PLogTag.INTERNAL_TAG, "tryInitLogWriter-->basicInfo=" + basicInfo);
-        //     mmapLogWriter.init(config.application, basicInfo, config.getLogDir(), null);
-        //     logWriter = mmapLogWriter;
-        // } catch (Throwable ex) {
-        //     ex.printStackTrace();
-        //     PLogPrint.e(PLogTag.INTERNAL_TAG, "tryInitLogWriter-->init MmapLogWriter error:" + ex.toString());
-        // }
+        if (null != logWriter) {
+            return;
+        }
+        PLogPrint.d(PLogTag.INTERNAL_TAG, "tryInitLogWriter-->dirPath=" + config.getLogDir());
+        try {
+            MmapLogWriter mmapLogWriter = new MmapLogWriter();
+            String basicInfo = logFormatter.format(PLog.DebugLevel.DEBUG, PLogTag.INTERNAL_TAG, getBasicInfo(config));
+            PLogPrint.d(PLogTag.INTERNAL_TAG, "tryInitLogWriter-->basicInfo=" + basicInfo);
+            mmapLogWriter.init(config.application, basicInfo, config.getLogDir(), null);
+            logWriter = mmapLogWriter;
+        } catch (Throwable ex) {
+            ex.printStackTrace();
+            PLogPrint.e(PLogTag.INTERNAL_TAG, "tryInitLogWriter-->init MmapLogWriter error:" + ex.toString());
+        }
     }
 
     @Override
     public void record(final int debugLevel, final String tag, final String msg) {
-        // if (debugLevel < mDebugLevel || TextUtils.isEmpty(tag) || TextUtils.isEmpty(msg)) {
-        //     return;
-        // }
-        // if (!PermissionHelper.hasWriteAndReadStoragePermission(config.application)) {
-        //     PLogPrint.e(PLogTag.INTERNAL_TAG, "log-->!hasWriteAndReadStoragePermission");
-        //     return;
-        // }
-        // PLogExecutor.executeDisk(new Runnable() {
-        //     @Override
-        //     public void run() {
-        //         checkInitAndRecordSync(logFormatter.format(debugLevel, tag, msg));
-        //     }
-        // });
+        if (debugLevel < mDebugLevel || TextUtils.isEmpty(tag) || TextUtils.isEmpty(msg)) {
+            return;
+        }
+        if (!PermissionHelper.hasWriteAndReadStoragePermission(config.application)) {
+            PLogPrint.e(PLogTag.INTERNAL_TAG, "log-->!hasWriteAndReadStoragePermission");
+            return;
+        }
+        PLogExecutor.executeDisk(new Runnable() {
+            @Override
+            public void run() {
+                checkInitAndRecordSync(logFormatter.format(debugLevel, tag, msg));
+            }
+        });
     }
 
 
@@ -91,26 +91,26 @@ public class LogRecorderImpl implements LogRecorder {
      * @param msgContent
      */
     private void checkInitAndRecordSync(String msgContent) {
-        // if (TextUtils.isEmpty(msgContent)) {
-        //     return;
-        // }
-        // tryInitLogWriter();
-        // try {
-        //     logWriter.write(msgContent, mPartFileSizeLimit);
-        // } catch (Throwable ex) {
-        //     PLogPrint.e(PLogTag.INTERNAL_TAG, "write " + ex.toString());
-        //     ex.printStackTrace();
-        //     tryWriteLog(msgContent);
-        // }
+        if (TextUtils.isEmpty(msgContent)) {
+            return;
+        }
+        tryInitLogWriter();
+        try {
+            logWriter.write(msgContent, mPartFileSizeLimit);
+        } catch (Throwable ex) {
+            PLogPrint.e(PLogTag.INTERNAL_TAG, "write " + ex.toString());
+            ex.printStackTrace();
+            tryWriteLog(msgContent);
+        }
     }
 
 
     private void tryWriteLog(String content) {
-        // try {
-        //     logWriter.write(content, mPartFileSizeLimit);
-        // } catch (Throwable e) {
-        //     e.printStackTrace();
-        // }
+        try {
+            logWriter.write(content, mPartFileSizeLimit);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
     }
 
     private String getBasicInfo(PLog.Config config) {
